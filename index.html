@@ -4217,11 +4217,12 @@ function initPrint(){
 /* ---- practice sheets (added 24.11) ---- */
 const SHEET_BASE='https://luli334-lgtm.github.io/anatomy-atlas/sheets/';
 const SHEETS=[
+ {t:'דפי עבודה: מושגי יסוד, רקמות, עצם, סחוס ושריר',d:'ציורים להשלמה, טבלאות למילוי ושרשראות: מילות כיוון, מישורים ותנועות, שכבות העובר, סוגי האפיתל, העור, כלי הדם, העצם, הסחוס, הסרקומר והנוירון. בדף התשובות יש גם מילון שורשים.',ch:['position','planes','tissues','epithelium','bone','cartilage','muscle','nerve'],date:'13.11',pages:15,ap:3,f:'worksheet-basics-tissues'},
  {t:'תמונות מהמצגות: רקמת חיבור, עצם ושריר',d:'כל התמונות מהמצגות בנושאים האלה. בדף התרגול כותבים מה רואים בכל תמונה, ובדף התשובות יש הסבר באנגלית ובעברית.',ch:['connective','bone','muscle','muscsys'],date:'20.11',pages:16,f:'slides-ct-bone-muscle'},
  {t:'השלד: עצמות ומפרקים',d:'ציור שלד עם קווים לכל עצם. בדף התרגול משלימים את השמות, ובדף התשובות כל השמות כתובים.',ch:['bone','joints'],date:'15.11',pages:1,f:'skeleton'}
 ];
 function initSheets(){const G=$('#sheetsGrid');if(!G)return;
- G.innerHTML=SHEETS.map(x=>`<div class="shcard"><div class="th"><img loading="lazy" src="${SHEET_BASE}${x.f}-practice-thumb.jpg" alt="${x.t}"></div><div class="bd"><b>${x.t}</b><span class="hint">${x.d}</span><div class="tags">${x.ch.map(id=>{const c=CH.find(z=>z.id===id);return c?`<a class="pill" href="#${id}">${c.n}. ${c.t}</a>`:''}).join('')}</div><span class="hint">נוסף ב-${x.date} · ${x.pages} ${x.pages>1?'עמודים':'עמוד'} בכל דף</span><div class="acts"><a class="pr" href="${SHEET_BASE}${x.f}-practice.pdf" target="_blank" rel="noopener">✏️ דף תרגול</a><a href="${SHEET_BASE}${x.f}-answers.pdf" target="_blank" rel="noopener">✓ דף תשובות</a></div></div></div>`).join('');}
+ G.innerHTML=SHEETS.map(x=>`<div class="shcard"><div class="th"><img loading="lazy" src="${SHEET_BASE}${x.f}-practice-thumb.jpg" alt="${x.t}"></div><div class="bd"><b>${x.t}</b><span class="hint">${x.d}</span><div class="tags">${x.ch.map(id=>{const c=CH.find(z=>z.id===id);return c?`<a class="pill" href="#${id}">${c.n}. ${c.t}</a>`:''}).join('')}</div><span class="hint">נוסף ב-${x.date} · דף תרגול: ${x.pages} ${x.pages>1?'עמודים':'עמוד'}${x.ap?` · דף תשובות: ${x.ap} עמודים`:''}</span><div class="acts"><a class="pr" href="${SHEET_BASE}${x.f}-practice.pdf" target="_blank" rel="noopener">✏️ דף תרגול</a><a href="${SHEET_BASE}${x.f}-answers.pdf" target="_blank" rel="noopener">✓ דף תשובות</a></div></div></div>`).join('');}
 /* ---------------- boot ---------------- */
 function boot(){
   buildRail();buildNP();refreshDone();
