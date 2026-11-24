@@ -425,6 +425,55 @@ details.whatsnew>summary{cursor:pointer;font-weight:700;list-style:none}details.
   --fib-c:#F0709F; --fib-e:#C7BCFF; --musc:#99496A; --musc-dk:#E07FA5; --fat:#3F3820; --fat-edge:#8F7D3E; --ct-bg:#33222C;
   --vein:#7E98F0; --artery:#F06A62; --nerve:#F0C752; --neuron:#6E5BB8; color-scheme:dark}
 
+/* print booklet */
+#printBook{display:none}
+.crumb .prbtn{margin-inline-start:auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+.crumb .prbtn:hover{background:var(--soft)}
+.crumb{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+@page{size:A4;margin:13mm 12mm}
+@media print{
+ body.printing > *:not(#printBook){display:none!important}
+ body.printing{background:#fff!important}
+ body.printing #printBook{display:block;color:#111;font-size:11pt}
+ #printBook *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ #printBook .pb-cover{min-height:250mm;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px}
+ #printBook .pb-logo{font-size:60pt}
+ #printBook .pb-cover h1{font-size:28pt;margin:0}
+ #printBook .pb-sub{font-size:16pt;color:#555;margin:0}
+ #printBook .pb-toc{text-align:start;font-size:13pt;line-height:1.9;margin:20px auto}
+ #printBook .pb-note{font-size:9pt;color:#666;margin-top:30px}
+ #printBook .pb-ch{break-before:page}
+ #printBook .pb-chhead{border-bottom:3px solid #222;margin-bottom:10px;padding-bottom:4px}
+ #printBook .pb-chhead span{font-size:9pt;color:#777}
+ #printBook .pb-chhead h1{margin:2px 0 0;font-size:20pt}
+ #printBook .pb-body > .head h2{display:none}
+ #printBook .pb-body > .head .eyebrow{display:none}
+ #printBook .panel{box-shadow:none!important;border:1px solid #ccc;background:#fff!important;padding:10px 12px;margin:0 0 10px;border-radius:8px}
+ #printBook .box,#printBook .tip,#printBook td,#printBook th,#printBook li{break-inside:avoid}
+ #printBook h3{break-after:avoid;font-size:13pt;margin:0 0 6px}
+ #printBook .split{display:block}
+ #printBook svg{max-width:100%;max-height:78mm;display:block;margin:0 auto}
+ #printBook .pb-mcq{columns:2;column-gap:18px;font-size:9.5pt}
+ #printBook .pb-mcq > li{break-inside:avoid}
+ #printBook .pb-key{columns:2;font-size:9pt}
+ #printBook .figbox{break-inside:avoid}
+ #printBook .pb-parts{columns:2;column-gap:16px;font-size:9.5pt;line-height:1.45;padding-inline-start:16px;margin:8px 0}
+ #printBook .pb-parts li{margin-bottom:5px;list-style:none}
+ #printBook .pb-parts .pb-gh{font-weight:700;color:#555;column-span:all;margin-top:4px}
+ #printBook .slstrip{break-inside:avoid}
+ #printBook .slrow{display:grid!important;grid-template-columns:repeat(3,1fr);gap:8px;overflow:visible!important}
+ #printBook .slrow figure{margin:0;width:auto!important;flex:none!important;break-inside:avoid}
+ #printBook .slrow img{width:100%;height:auto;max-height:55mm;object-fit:contain}
+ #printBook .sllab{font-size:9pt;color:#666}
+ #printBook .tablewrap{overflow:visible!important}
+ #printBook table{width:100%;font-size:9.5pt}
+ #printBook .pb-ans{color:#333;margin:3px 0 8px;font-size:10pt}
+ #printBook .pb-oq li,#printBook .pb-mcq > li{margin-bottom:8px}
+ #printBook .gl{border:0!important;text-decoration:none}
+ #printBook .gl::after{display:none}
+ #printBook a{color:inherit;text-decoration:none}
+ #printBook .grid2,#printBook .grid3{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+}
 </style>
 </head><body style="margin:0">
 
@@ -481,8 +530,12 @@ details.whatsnew>summary{cursor:pointer;font-weight:700;list-style:none}details.
 
 
 
+<section class="view" id="v-print" hidden><div class="head"><span class="eyebrow">🖨️ הדפסה</span><h2>חוברת להדפסה / PDF</h2><p class="lede">בוחרים נושאים, והאתר מסדר אותם בחוברת מסודרת להדפסה: עמוד שער, כל פרק בעמוד חדש, כל החלקים של הציורים כתובים, ותמונות מהמצגות. מתאים גם למי שלומד בלי מחשב.</p></div>
+ <div class="panel"><div id="printBox"></div></div>
+</section>
 <section class="view" id="v-topics" hidden><div class="head"><span class="eyebrow">📚 נושאים</span><h2>כל הנושאים</h2><p class="lede">3 יחידות לפי סדר הקורס. לחצי על פרק כדי להיכנס. ✓ = סימנת שסיימת.</p></div>
  <a class="mapcta" href="#seq"><span class="st">🔢</span><span><b>לפי הסדר: לומדים רצפים שלב אחרי שלב</b><br><span class="hint">מבנה השריר, איך שריר מתכווץ, עצם ארוכה, התגרמות, שכבות העור, המפרק הסינוביאלי ועוד.</span></span></a>
+ <a class="mapcta" href="#print"><span class="st">🖨️</span><span><b>חוברת להדפסה / PDF</b><br><span class="hint">בוחרים פרקים ומקבלים חוברת מסודרת להדפסה.</span></span></a>
  <a class="mapcta" href="#map"><span class="st">★</span><span><b>המפה: איך הכול מתחבר</b><br><span class="hint">מה בונה את מה, סיפור של בעיטה אחת, ושרשראות "למה".</span></span></a>
  <div id="topicsUnits" style="display:flex;flex-direction:column;gap:18px"></div></section>
 <section class="view" id="v-exams" hidden><div class="head"><span class="eyebrow">📝 מבחנים</span><h2>איזה מבחן היום?</h2><p class="lede">בכל מבחן אפשר לבחור פרקים. מומלץ לפני בוחן: קודם "מבחן בוחן מלא", ואז "טעיתי בזה".</p></div><div class="xgrid" id="examsGrid"></div></section>
@@ -2978,6 +3031,7 @@ function initAdded(){[initSpine,initSlides,initSkelMap,initJoints,initGloss,init
 
 /* ---- added 13.11: 4 clickable histology figures ---- */
 function clickFig(svgSel,outSel,P,svg,first){
+  try{FIGP[svgSel]=P}catch(e){}
   const S=$(svgSel),O=$(outSel);if(!S||!O)return;S.innerHTML=svg;
   function show(k){const p=P[k];O.innerHTML=`<span class="eyebrow">${p.t||''}</span><h3>${p.n} <span class="en">${p.en}</span></h3><p>${p.d}</p><p class="hint">לחצי על חלק אחר בציור.</p>`;
     $$('.pick',S).forEach(g=>g.classList.toggle('sel',g.dataset.p===k))}
@@ -3840,7 +3894,7 @@ const spKey=s=>s.q+'|'+s.a;
 const spChapter=s=>s.t.split('|')[0].split(':')[0];
 /* ---- header ---- */
 function v2Header(){const nav=document.createElement('nav');nav.className='mainnav';nav.setAttribute('aria-label','ניווט ראשי');
- nav.innerHTML=`<a href="#home" data-m="home">🏠 בית</a><a href="#topics" data-m="topics">📚 נושאים</a><a href="#exams" data-m="exams">📝 מבחנים</a><a href="#dict" data-m="dict">🔤 מילון</a><button class="theme" id="themeBtn" type="button"></button>`;
+ nav.innerHTML=`<a href="#home" data-m="home">🏠 בית</a><a href="#topics" data-m="topics">📚 נושאים</a><a href="#exams" data-m="exams">📝 מבחנים</a><a href="#dict" data-m="dict">🔤 מילון</a><a href="#print" data-m="print">🖨️ הדפסה</a><button class="theme" id="themeBtn" type="button"></button>`;
  $('#rail').after(nav);
  const T=['auto','light','dark'],L={auto:'🌗<span class="tl"> אוטומטי</span>',light:'☀️<span class="tl"> בהיר</span>',dark:'🌙<span class="tl"> כהה</span>'};let t=store.get('anat-theme','auto');
  const apply=()=>{if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);$('#themeBtn').innerHTML=L[t];$('#themeBtn').title='מצב תצוגה: '+$('#themeBtn').textContent.trim()};
@@ -3873,8 +3927,8 @@ function v2Home(){const H=$('#homeV2');if(!H)return;const nq=nextQuiz();const do
  const sched=`<div class="hcard"><span class="eyebrow">לוח הבחנים · כל יום ראשון</span><table class="qsched">${QZ.map(z=>{const past=new Date(z.d+'T23:59:59')<new Date(),isN=nq&&z.n===nq.n;return `<tr class="${past?'past':''}${isN?' nx':''}"><td>בוחן ${z.n}</td><td>${fmtD(z.d)}</td><td>${z.t}</td><td>${past?'<span class="stat ok">✓ עבר</span>':isN?'<span class="stat nx">הבא</span>':'<span class="stat fu">בהמשך</span>'}</td></tr>`}).join('')}</table>
    <div style="margin-top:12px"><b>ההתקדמות שלך בכל החומר</b><div class="prog"><i style="width:${pctAll}%"></i></div><span class="hint">${pctAll}% מהפרקים מסומנים "סיימתי"</span></div></div>`;
  const last=store.get('anat-last',null),lc=last&&CH.find(c=>c.id===last);const mc=MIS.count();
- const quick=`<div class="quick" style="margin-top:14px">${lc&&lc.u<4?`<a href="#${lc.id}">↩ להמשיך מאיפה שעצרת: ${lc.n}. ${lc.t}</a>`:''}${mc?`<a href="#mistakes">🎯 טעיתי בזה (${mc})</a>`:''}<a href="#dict">🔤 מילון מושגים</a><a href="#seq">🔢 לפי הסדר</a><a href="#map">★ המפה: איך הכול מתחבר</a></div>`;
- const units=`<div class="secttl"><h2>מה יש באתר</h2><span class="hint">3 יחידות, 14 פרקים</span></div><div class="units2">${UNITS.filter(U=>U.u>=1&&U.u<=3).map(U=>`<div class="ucard" style="--uc:${UCOL[U.u]}"><span class="eyebrow">${U.eyebrow}</span><h3>${U.t.split(':')[0]}</h3><ul>${CH.filter(c=>c.u===U.u).map(c=>`<li><a href="#${c.id}"><span class="cn">${c.n}</span><span>${c.t}</span>${done.has(c.id)?'<span class="ck">✓</span>':''}</a></li>`).join('')}</ul></div>`).join('')}</div>`;
+ const quick=`<div class="quick" style="margin-top:14px">${lc&&lc.u<4?`<a href="#${lc.id}">↩ להמשיך מאיפה שעצרת: ${lc.n}. ${lc.t}</a>`:''}${mc?`<a href="#mistakes">🎯 טעיתי בזה (${mc})</a>`:''}<a href="#dict">🔤 מילון מושגים</a><a href="#print">🖨️ חוברת להדפסה</a><a href="#seq">🔢 לפי הסדר</a><a href="#map">★ המפה: איך הכול מתחבר</a></div>`;
+ const units=`<div class="secttl"><h2>מה יש באתר</h2><span class="hint">3 יחידות, ${CH.filter(c=>c.u>=1&&c.u<=3).length} פרקים</span></div><div class="units2">${UNITS.filter(U=>U.u>=1&&U.u<=3).map(U=>`<div class="ucard" style="--uc:${UCOL[U.u]}"><span class="eyebrow">${U.eyebrow}</span><h3>${U.t.split(':')[0]}</h3><ul>${CH.filter(c=>c.u===U.u).map(c=>`<li><a href="#${c.id}"><span class="cn">${c.n}</span><span>${c.t}</span>${done.has(c.id)?'<span class="ck">✓</span>':''}</a></li>`).join('')}</ul></div>`).join('')}</div>`;
  H.innerHTML=`<div class="hero2">${q}${sched}</div>${quick}${units}`;
  $$('[data-simq]',H).forEach(a=>a.addEventListener('click',()=>store.set('anat-sim-ch',(QZ.find(z=>z.n===+a.dataset.simq)||{}).ch||[])));}
 /* ---- exams hub ---- */
@@ -4071,12 +4125,88 @@ TRAPS.push('<b>Anterior longitudinal</b> = מונעת <b>Extension</b>. <b>Inter
 TRCH.push('spine','spine');
 TERMS.push(['Vertebra prominens','C7','SP ארוך לא מפוצל',3,'spine'],['Vertebral artery','העורק הוורטברלי','עובר ב-Transverse foramen',3,'spine'],['Sacral promontory','החלק העליון של S1','תעלת הלידה',3,'spine'],['Sacral hiatus','הפתח בתחתית ה-Sacrum','',3,'spine'],['Atlantoaxial joint','המפרק בין C1 ל-C2','pivot',3,'spine'],['Anterior longitudinal ligament','רצועה אורכית קדמית','מונעת Extension',3,'spine'],['Ligamentum flavum','הרצועה הצהובה','בין הלמינות',3,'spine'],['Erector spinae','זוקפי הגו','שכבה 5',3,'spine'],['Transversospinalis','שכבה 6 של שרירי הגב','',3,'spine'],['Spina bifida','ספינה ביפידה','הלמינות לא מתאחדות',3,'spine'],['Hilton\'s law','חוק הילטון','עצבוב המפרק',3,'joints'],['Proprioception','תחושת המנח של המפרק','',3,'joints'],['Anastomosis','רשת עורקים סביב מפרק','',3,'joints']);
 SEQ.push({id:'backm',t:'שרירי הגב, שכבות 3–6',ch:'spine',d:'מהשטחי לעמוק',s:[['שכבה 3','Serratus posterior superior + inferior','עזר בנשימה.'],['שכבה 4','Splenius capitis + cervicis','"התחבושת" של הצוואר.'],['שכבה 5','Erector spinae','Iliocostalis (לטרלי), Longissimus, Spinalis (מדיאלי). Extension.'],['שכבה 6','Transversospinalis','Semispinalis 5–8, Multifidus 3–4, Rotatores 1–2 חוליות.']]});
+/* ---- print booklet (added 24.11) ---- */
+const FIGP={};
+function prSecCount(id){const S=$('#v-'+id);return S?S.querySelectorAll(':scope > .panel').length:0}
+function prClone(id,opt){
+  const S=$('#v-'+id);const c=CH.find(x=>x.id===id);if(!S||!c)return '';
+  const K=S.cloneNode(true);K.removeAttribute('hidden');K.removeAttribute('id');K.className='pb-body';
+  K.querySelectorAll('.mini,.nextprev,.crumb,.toc,.btns,.flg,.prbtn,[id$="Game"],input,select,textarea,.donebtn,.markdone,button').forEach(e=>{const p=e.closest('.panel');e.remove();if(p&&!p.textContent.trim())p.remove()});
+  K.querySelectorAll('details').forEach(d=>d.open=true);
+  K.querySelectorAll('h3').forEach(h=>{h.childNodes.forEach(n=>{if(n.nodeType===3)n.textContent=n.textContent.replace(/:?\s*לחצי על (כל|כרטיס)[^:]*$/,'')})});K.querySelectorAll('.sllab').forEach(l=>l.textContent='📷 מהמצגת');K.querySelectorAll('.hint').forEach(h=>{if(/^לחצי /.test(h.textContent.trim()))h.remove()});
+  if(!opt.pics)K.querySelectorAll('.slstrip').forEach(e=>e.remove());
+  K.querySelectorAll('.slstrip img').forEach(i=>{i.loading='eager'});
+  /* clickable figures: write out every part */
+  K.querySelectorAll('svg[id]').forEach(sv=>{const P=FIGP['#'+sv.id];if(!P)return;
+    const L=(LEG[sv.id]&&LEG[sv.id].L)||Object.keys(P);let n=0;
+    const num={};const items=L.map(k=>k.startsWith('#')?`<li class="pb-gh">${k.slice(1)}</li>`:P[k]?`<li><b>${num[k]=++n}. ${P[k].n}</b> <span class="en">${P[k].en||''}</span><br>${P[k].d}</li>`:'').join('');sv.dataset.pbnum=JSON.stringify(num);sv.querySelectorAll('.sel').forEach(g=>g.classList.remove('sel'));
+    const split=sv.closest('.split');const out=split&&split.querySelector('.out');
+    const ul=document.createElement('ul');ul.className='pb-parts';ul.innerHTML=items;
+    if(out)out.replaceWith(ul);else sv.parentNode.after(ul)});
+  K.querySelectorAll('.out').forEach(o=>{if(!o.textContent.trim())o.remove()});
+  /* unique ids so svg defs keep working */
+  const map={};K.querySelectorAll('[id]').forEach(e=>{const n=e.id+'_pb';map[e.id]=n;e.id=n});
+  K.querySelectorAll('*').forEach(e=>{for(const a of [...e.attributes]){if(/url\(#|^#/.test(a.value)){let v=a.value.replace(/url\(#([^)]+)\)/g,(m,x)=>map[x]?`url(#${map[x]})`:m);if(/^#/.test(v)&&(a.name==='href'||a.name==='xlink:href')&&map[v.slice(1)])v='#'+map[v.slice(1)];if(v!==a.value)e.setAttribute(a.name,v)}}});
+  let extra='';const sel=new Set([id]);
+  if(opt.qs){const oq=OQ.map((q,i)=>({q,i})).filter(x=>hasCh(OQTAG(x.q,x.i),sel));
+    const tr=TRAPS.map((t,i)=>({t,tags:(TRCH[i]||'').split('|')})).filter(x=>hasCh(x.tags,sel));
+    if(oq.length)extra+=`<div class="panel"><h3>שאלות פתוחות עם תשובות</h3><ol class="pb-oq">${oq.map(x=>`<li><b>${x.q[1]}</b><div class="pb-ans">${x.q[2]}</div></li>`).join('')}</ol></div>`;
+    if(tr.length)extra+=`<div class="panel"><h3>⚠️ מלכודות למבחן</h3><ul>${tr.map(x=>`<li>${x.t}</li>`).join('')}</ul></div>`}
+  if(opt.mcq){const qs=Q.filter(q=>q.t===id);if(qs.length){extra+=`<div class="panel"><h3>שאלות אמריקאיות (התשובות בסוף החוברת)</h3><ol class="pb-mcq">${qs.map(q=>{const o=shuffle(q.o.map((t,k)=>({t,k})));q._pbAns=o.findIndex(x=>x.k===0);return `<li><b>${q.q}</b><ol type="א">${o.map(x=>`<li>${x.t}</li>`).join('')}</ol></li>`}).join('')}</ol></div>`;prClone.ans.push([c,qs])}}
+  return `<section class="pb-ch"><div class="pb-chhead"><span>${(UNITS.find(u=>u.u===c.u)||{}).eyebrow||''} · פרק ${c.n}</span><h1>${c.t}</h1></div>${K.outerHTML}${extra}</section>`;
+}
+prClone.ans=[];
+function prBuild(ids,opt){
+  const order=CH.filter(c=>ids.includes(c.id));prClone.ans=[];
+  let B=$('#printBook');if(!B){B=document.createElement('div');B.id='printBook';document.body.appendChild(B)}
+  const today=new Date().toLocaleDateString('he-IL');
+  let h=`<section class="pb-cover"><div class="pb-logo">🦴</div><h1>אטלס מבוא לאנטומיה</h1><p class="pb-sub">חוברת להדפסה</p><ol class="pb-toc">${order.map(c=>`<li>פרק ${c.n} · ${c.t}</li>`).join('')}</ol><p class="pb-note">המידע שלא מופיע במצגות מסומן לפי המקור שלו (למשל "מהסיכום של גל").<br>הודפס ב-${today} מתוך luli334-lgtm.github.io/anatomy-atlas</p></section>`;
+  h+=order.map(c=>prClone(c.id,opt)).join('');
+  if(opt.mcq&&prClone.ans.length)h+=`<section class="pb-ch"><div class="pb-chhead"><h1>תשובות לשאלות האמריקאיות</h1></div>${prClone.ans.map(([c,qs])=>`<div class="panel"><h3>פרק ${c.n} · ${c.t}</h3><ol class="pb-key">${qs.map(q=>`<li><b>${'אבגדהו'[q._pbAns]}</b> · ${q.e||''}</li>`).join('')}</ol></div>`).join('')}</section>`;
+  if(opt.terms){const sel=new Set(ids);const T=TERMS.map((t,i)=>({t,tags:TCH(i,t).split('|')})).filter(x=>hasCh(x.tags,sel)).map(x=>x.t);
+    if(T.length)h+=`<section class="pb-ch"><div class="pb-chhead"><h1>מילון מושגים</h1></div><div class="tablewrap"><table class="pb-terms"><tr><th>English</th><th>עברית</th><th>הערה</th></tr>${T.map(t=>`<tr><td dir="ltr"><b>${t[0]}</b></td><td>${t[1]}</td><td>${t[2]||''}</td></tr>`).join('')}</table></div></section>`}
+  B.innerHTML=h;
+  B.style.cssText='display:block;position:absolute;left:-10000px;top:0;width:180mm';
+  B.querySelectorAll('svg[data-pbnum]').forEach(sv=>{const num=JSON.parse(sv.dataset.pbnum);const ns='http://www.w3.org/2000/svg';
+    const vb=sv.viewBox&&sv.viewBox.baseVal;const r=vb&&vb.width?Math.max(9,vb.width/38):11;
+    Object.entries(num).forEach(([k,n])=>{const g=sv.querySelector(`.pick[data-p="${k}"]`);if(!g)return;const el=g.firstElementChild||g;let bb;try{bb=el.getBBox()}catch(e){return}if(!bb.width&&!bb.height)return;
+      const cx=bb.x+bb.width/2,cy=bb.y+bb.height/2;const G=document.createElementNS(ns,'g');
+      G.innerHTML=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="#111" stroke="#fff" stroke-width="${r/5}"/><text x="${cx}" y="${cy+r*0.38}" text-anchor="middle" font-size="${r*1.15}" font-weight="700" fill="#fff" font-family="Arial">${n}</text>`;sv.appendChild(G)})});
+  B.style.cssText='';return B;
+}
+function prGo(ids,opt){
+  if(!ids.length){alert('בחרי לפחות פרק אחד');return}
+  prBuild(ids,opt);const root=document.documentElement;const th=root.getAttribute('data-theme');
+  root.setAttribute('data-theme','light');document.body.classList.add('printing');
+  const done=()=>{document.body.classList.remove('printing');if(th)root.setAttribute('data-theme',th);else root.removeAttribute('data-theme');window.removeEventListener('afterprint',done)};
+  window.addEventListener('afterprint',done);
+  const imgs=[...$('#printBook').querySelectorAll('img')];
+  Promise.all(imgs.map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r}))).then(()=>setTimeout(()=>window.print(),150));
+}
+const PR_DEF={pics:1,qs:1,mcq:0,terms:1};
+function initPrint(){
+  const box=$('#printBox');if(!box)return;
+  let opt=Object.assign({},PR_DEF,store.get('anat-pr-opt',{}));
+  box.innerHTML=`<div id="prPick"></div>
+   <p class="hint" style="margin:14px 0 6px"><b>מה להכניס לחוברת</b></p>
+   <div class="chpick">${[['pics','📷 תמונות מהמצגות'],['qs','✎ שאלות פתוחות עם תשובות ומלכודות'],['mcq','✅ שאלות אמריקאיות (תשובות בסוף)'],['terms','🔤 מילון מושגים בסוף']].map(([k,t])=>`<label class="spchk"><input type="checkbox" data-o="${k}" ${opt[k]?'checked':''}> ${t}</label>`).join('')}</div>
+   <div class="btns"><button class="btn pri" id="prGoBtn">🖨️ יצירת החוברת</button></div>
+   <div class="tip" style="margin-top:12px"><span class="k">PDF</span><p>ייפתח חלון ההדפסה. כדי לקבל קובץ, בחרי ביעד <b>"שמירה כ-PDF"</b> (Save as PDF), ואז שמרי. באייפון: בחלון ההדפסה לוחצים על "שיתוף" ← "שמירה בקבצים". מומלץ להדפיס ממחשב.</p></div>`;
+  const P=chPicker($('#prPick'),'anat-pr-ch',prSecCount);
+  $$('[data-o]',box).forEach(i=>i.addEventListener('change',()=>{opt[i.dataset.o]=i.checked?1:0;store.set('anat-pr-opt',opt)}));
+  $('#prGoBtn').addEventListener('click',()=>prGo(CH.filter(c=>P.get().has(c.id)).map(c=>c.id),opt));
+  /* print button on every chapter */
+  CH.filter(c=>c.u>=1&&c.u<=3).forEach(c=>{const S=$('#v-'+c.id);const cr=S&&$('.crumb',S);if(!cr)return;
+    const b=document.createElement('button');b.className='prbtn';b.type='button';b.textContent='🖨️ הדפסת הפרק';
+    b.addEventListener('click',()=>prGo([c.id],Object.assign({},PR_DEF,store.get('anat-pr-opt',{}))));cr.appendChild(b)});
+}
 /* ---------------- boot ---------------- */
 function boot(){
   buildRail();buildNP();refreshDone();
   initAdded();
   [initGerm,initPosition,initPlanes,initCavities,initLevels,initScopes,initSkin,initFibers,initTree,initSorter,initMuscle,initNeuron,initMinis,initQuiz,initCards,initPlaneGame,initEpiGame,initOpen,initTraps,initSpot].forEach(f=>{try{f()}catch(e){console.error(f.name,e)}});
   try{initV2()}catch(e){console.error('v2',e)}
+  try{initPrint()}catch(e){console.error('print',e)}
   window.addEventListener('hashchange',route);route();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
