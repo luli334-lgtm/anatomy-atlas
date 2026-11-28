@@ -4,7 +4,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Frank+Ruhl+Libre:wght@500;700;900&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap">
 <style>
 /* Layout: a study atlas — sticky chapter rail on top, one chapter per view, each chapter = short text + one hands-on figure + self-check. Colors come from histology (H&E stain: eosin pink, hematoxylin violet) and the three germ-layer colors used in class (blue/red/yellow). */
 :root{
@@ -1811,7 +1811,89 @@ details.whatsnew>summary{cursor:pointer;font-weight:700;list-style:none}details.
       #spRegions .rc dt{font-weight:700;white-space:nowrap}
       #spRegions .rc dd{margin:0}
       #spRegions .rc .id{margin-top:8px;padding:7px 10px;border-radius:10px;background:color-mix(in srgb,var(--rc) 12%,transparent);font-size:.9rem}
-    </style>
+    /* ===== v3 design: unified type, calmer palette, depth (28.11) ===== */
+:root{
+  --f-display:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --f-body:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --f-mono:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --paper:#F4F5F7; --card:#FFFFFF; --ink:#1C2230; --muted:#5D6677; --line:#E3E6EB; --soft:#F1F3F6;
+  --eosin:#A8436A; --eosin-soft:#F6E4EB; --hema:#4E4590; --hema-soft:#E9E7F5;
+  --ecto:#2E62A8; --ecto-soft:#E3ECF8; --ok:#2A7655; --ok-soft:#E1F1E9; --bad:#B0392F; --bad-soft:#F8E3E0;
+  --accent:#2E4A7A; --accent-soft:#E7ECF5;
+  --sh1:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.05);
+  --sh2:0 2px 6px rgba(16,24,40,.05),0 10px 28px rgba(16,24,40,.08);
+  --side-w:272px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#101217;--card:#181B22;--line:#2A2F3A;--soft:#1F232C;--accent:#9DB4E0;--accent-soft:#1E2738;--sh1:0 1px 2px rgba(0,0,0,.3);--sh2:0 8px 24px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--paper:#101217;--card:#181B22;--line:#2A2F3A;--soft:#1F232C;--accent:#9DB4E0;--accent-soft:#1E2738;--sh1:0 1px 2px rgba(0,0,0,.3);--sh2:0 8px 24px rgba(0,0,0,.35)}
+body{font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased;letter-spacing:0}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:700;letter-spacing:-.01em}
+h1{font-weight:800}
+h3{font-size:1.16rem}
+.eyebrow{font-family:var(--f-body);font-weight:600;font-size:.78rem;letter-spacing:.02em;text-transform:none;color:var(--eosin)}
+.en{font-family:var(--f-body);font-size:.95em;font-weight:500;letter-spacing:0}
+.pill{font-family:var(--f-body);font-weight:500;font-size:.72rem;border-radius:999px;padding:1px 9px;background:var(--soft);border:1px solid var(--line);color:var(--muted)}
+.lede{color:var(--muted);font-size:1.02rem}
+.panel{border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh1);padding:22px 24px}
+.box{background:var(--soft);border:1px solid transparent;border-radius:12px}
+.tip{border-radius:12px}
+table{border-collapse:separate;border-spacing:0}
+.tablewrap table th{background:var(--soft);font-weight:700}
+.btn{border-radius:10px;box-shadow:var(--sh1);transition:box-shadow .15s,transform .15s}
+.btn:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.btn.pri,.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.ucard,.xcard,.shcard,.qcard,.mapcta{box-shadow:var(--sh1);transition:box-shadow .2s,transform .2s;border-color:var(--line)}
+.ucard:hover,.xcard:hover,.shcard:hover,.mapcta:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.top{background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);box-shadow:0 1px 0 var(--line),0 6px 18px rgba(16,24,40,.04);border-bottom:0}
+.brand a{font-family:var(--f-display);font-weight:800;letter-spacing:-.01em}
+.brand small{color:var(--muted);font-weight:400}
+.mainnav a,.mainnav button{font-weight:600}
+.mainnav a.on{background:var(--accent);color:#fff}
+.crumb{font-size:.85rem}
+.crumb a{color:var(--muted)}
+/* ---- side navigation ---- */
+#sidenav{position:fixed;top:0;bottom:0;right:0;width:var(--side-w);background:var(--card);border-left:1px solid var(--line);box-shadow:-2px 0 18px rgba(16,24,40,.05);z-index:30;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s ease;overscroll-behavior:contain}
+#sidenav.open{transform:none}
+#sidenav .sn-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px 18px 12px;border-bottom:1px solid var(--line)}
+#sidenav .sn-head b{font-size:1.02rem;font-weight:800}
+#sidenav .sn-head small{display:block;color:var(--muted);font-size:.76rem;font-weight:400}
+#sidenav .sn-x{border:0;background:var(--soft);width:32px;height:32px;border-radius:8px;cursor:pointer;color:var(--ink);font-size:1rem}
+#sidenav .sn-body{overflow-y:auto;padding:10px 10px 30px;flex:1}
+#sidenav .sn-sec{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin:14px 10px 4px}
+#sidenav a.sn{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:9px;color:var(--ink);text-decoration:none;font-size:.92rem;line-height:1.35}
+#sidenav a.sn:hover{background:var(--soft)}
+#sidenav a.sn.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+#sidenav a.sn svg{width:17px;height:17px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+#sidenav .sn-n{flex:none;min-width:24px;height:22px;border-radius:6px;display:inline-grid;place-items:center;font-size:.72rem;font-weight:700;background:color-mix(in srgb,var(--uc) 14%,transparent);color:var(--uc)}
+#sidenav .sn-t{flex:1}
+#sidenav .sn-ok{color:var(--ok);font-size:.8rem;font-weight:700}
+#sidenav details.sn-u{margin-top:2px}
+#sidenav details.sn-u>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;font-weight:700;font-size:.86rem}
+#sidenav details.sn-u>summary::-webkit-details-marker{display:none}
+#sidenav details.sn-u>summary::before{content:'';width:4px;height:16px;border-radius:2px;background:var(--uc)}
+#sidenav details.sn-u>summary::after{content:'›';margin-inline-start:auto;color:var(--muted);transform:rotate(90deg);transition:transform .2s}
+#sidenav details.sn-u[open]>summary::after{transform:rotate(-90deg)}
+#sidenav details.sn-u>summary:hover{background:var(--soft)}
+#sidenav .sn-prog{font-size:.72rem;color:var(--muted);font-weight:500}
+#snScrim{position:fixed;inset:0;background:rgba(10,14,22,.35);z-index:29;opacity:0;pointer-events:none;transition:opacity .25s}
+#snScrim.on{opacity:1;pointer-events:auto}
+.mainnav .menu{border-color:var(--line)}
+@media (min-width:1180px){
+  body{padding-right:var(--side-w)}
+  #sidenav{transform:none;box-shadow:none}
+  #sidenav .sn-x,#snScrim,.mainnav .menu{display:none}
+  .mainnav a{display:none}
+  .mainnav{justify-content:flex-end}
+}
+@media print{#sidenav,#snScrim{display:none!important}body{padding:0!important}}
+.mainnav a{display:none!important}
+.mainnav .menu .tl{display:inline!important}
+@media (max-width:560px){.brand small{display:none}.brand a{font-size:1.05rem;white-space:nowrap}}
+.top-inner{display:flex;flex-direction:row!important;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap;padding-block:10px!important}
+.top-inner .brand{justify-content:flex-start;text-align:start}
+.top-inner .mainnav{flex:0 0 auto;gap:6px}
+.top-inner .brand{flex:1 1 auto;min-width:0}
+</style>
     <p style="line-height:1.7"><b>התמונה הכללית:</b> 24 חוליות נפרדות שזזות (C1 עד L5), ומתחתן Sacrum ו-Coccyx מאוחים. <b>ככל שיורדים, החוליות גדלות</b>, כי כל חוליה נושאת את המשקל של כל מה שמעליה (במצגת: C7 גדולה מ-C6, שגדולה מ-C5, וכן הלאה). <span class="pill">מהסיכום של גל</span> בסך הכול 31–33 חוליות, תלוי כמה חוליות התאחו ב-Coccyx.</p>
     <div class="rgrid">
 
@@ -3960,7 +4042,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){const o=document.qu
 window.addEventListener('hashchange',()=>{const o=document.querySelector('.glpop');if(o)o.remove()});
 function initGloss(){$$('.gl').forEach(g=>{g.tabIndex=0;g.setAttribute('role','button')})}
 /* ===== v2: home, topics, exams, dictionary, sequences, mistakes, simulation (24.11) ===== */
-const UCOL={0:'#6A4C93',1:'#2A66C9',2:'#C2386A',3:'#1F7A4D'};
+const UCOL={0:'#5E4B8B',1:'#2F62A8',2:'#A8436A',3:'#2A7655'};
 const QZ=[
  {n:1,d:'2026-11-15',t:'מושגי יסוד, רקמות ומעט רקמת חיבור',ch:['intro','position','planes','cavities','levels','tissues','epithelium','connective']},
  {n:2,d:'2026-11-22',t:'רקמות חיבור, עצם ושריר',ch:['connective','muscle','nerve','bone','muscsys']},
@@ -4314,6 +4396,40 @@ function initShare(){const b=$('#shareBtn');if(!b)return;b.addEventListener('cli
  document.addEventListener('click',e=>{const a=e.target.closest('a[href*="/sheets/"]');if(a)gcEvent('sheet/'+a.getAttribute('href').split('/').pop(),'פתיחת דף תרגול')});
  const pb=$('#prGoBtn');if(pb)pb.addEventListener('click',()=>gcEvent('print-booklet','יצירת חוברת להדפסה'));
 }
+/* ---- side navigation (added 28.11) ---- */
+const SN_IC={home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',topics:'<path d="M4 5h6a2 2 0 012 2v12a2 2 0 00-2-2H4z"/><path d="M20 5h-6a2 2 0 00-2 2v12a2 2 0 012-2h6z"/>',exams:'<path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/>',sheets:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',mistakes:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',dict:'<path d="M4 19V5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M8 7h7M8 11h5"/>',seq:'<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>',print:'<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>',map:'<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>',sim:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/>'};
+const snI=k=>`<svg viewBox="0 0 24 24" aria-hidden="true">${SN_IC[k]||''}</svg>`;
+function snBuild(){
+  let A=$('#sidenav');if(!A){A=document.createElement('aside');A.id='sidenav';A.setAttribute('aria-label','ניווט צדדי');document.body.appendChild(A);
+    const sc=document.createElement('div');sc.id='snScrim';document.body.appendChild(sc);sc.addEventListener('click',snClose)}
+  const open=store.get('anat-sn-open',{});
+  const main=[['home','בית'],['topics','כל הנושאים'],['exams','מבחנים ותרגול'],['sim','מבחן בוחן מלא'],['sheets','דפי תרגול'],['mistakes','טעיתי בזה'],['dict','מילון מושגים'],['seq','לפי הסדר'],['print','חוברת להדפסה']];
+  let h=`<div class="sn-head"><div><b>אטלס מבוא לאנטומיה</b><small>לאן ממשיכים?</small></div><button class="sn-x" type="button" aria-label="סגירה">✕</button></div><div class="sn-body">`;
+  h+=main.map(([id,t])=>`<a class="sn" href="#${id}" data-sn="${id}">${snI(id)}<span class="sn-t">${t}</span></a>`).join('');
+  [0,1,2,3].forEach(u=>{const U=UNITS.find(x=>x.u===u);const ch=CH.filter(c=>c.u===u);if(!ch.length)return;
+    const d=ch.filter(c=>done.has(c.id)).length;const col=UCOL[u]||'#555';const isOpen=open[u]!==undefined?open[u]:true;
+    h+=`<details class="sn-u" data-u="${u}" style="--uc:${col}" ${isOpen?'open':''}><summary>${U.eyebrow}<span class="sn-prog">${u?`${d}/${ch.length}`:''}</span></summary>`+
+     ch.map(c=>`<a class="sn" href="#${c.id}" data-sn="${c.id}" style="--uc:${col}"><span class="sn-n">${c.n}</span><span class="sn-t">${c.t}</span>${done.has(c.id)?'<span class="sn-ok">✓</span>':''}</a>`).join('')+`</details>`});
+  const pr=CH.filter(c=>c.u===4);
+  if(pr.length)h+=`<div class="sn-sec">תרגול לפי סוג</div>`+pr.map(c=>`<a class="sn" href="#${c.id}" data-sn="${c.id}"><span class="sn-n" style="--uc:#5D6677">${c.n}</span><span class="sn-t">${c.t}</span></a>`).join('');
+  h+='</div>';A.innerHTML=h;
+  $('.sn-x',A).addEventListener('click',snClose);
+  $$('details.sn-u',A).forEach(d=>d.addEventListener('toggle',()=>{const o=store.get('anat-sn-open',{});o[d.dataset.u]=d.open;store.set('anat-sn-open',o)}));
+  $$('a.sn',A).forEach(a=>a.addEventListener('click',()=>{if(innerWidth<1180)snClose()}));
+  snMark(location.hash.slice(1)||'home');
+}
+function snMark(id){const A=$('#sidenav');if(!A)return;let hit=null;
+  $$('a.sn',A).forEach(a=>{const on=a.dataset.sn===id;a.classList.toggle('on',on);if(on)hit=a});
+  if(hit){const d=hit.closest('details');if(d&&!d.open)d.open=true;const b=$('.sn-body',A);const r=hit.getBoundingClientRect(),rb=b.getBoundingClientRect();if(r.top<rb.top||r.bottom>rb.bottom)hit.scrollIntoView({block:'center'})}}
+function snOpen(){$('#sidenav').classList.add('open');$('#snScrim').classList.add('on')}
+function snClose(){const A=$('#sidenav');if(A)A.classList.remove('open');const s=$('#snScrim');if(s)s.classList.remove('on')}
+function initSide(){snBuild();
+  const nav=$('.mainnav');if(nav&&!$('.menu',nav)){const b=document.createElement('button');b.className='menu';b.type='button';b.innerHTML='☰<span class="tl"> תפריט</span>';b.setAttribute('aria-label','פתיחת התפריט');b.addEventListener('click',snOpen);nav.prepend(b)}
+  window.addEventListener('hashchange',()=>{const id=location.hash.slice(1)||'home';snMark(id)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')snClose()});
+  /* refresh ✓ marks when chapters are marked done */
+  document.addEventListener('click',e=>{if(e.target.closest('.donebtn,.markdone,[data-done]'))setTimeout(snBuild,60)});
+}
 /* ---------------- boot ---------------- */
 function boot(){
   buildRail();buildNP();refreshDone();
@@ -4323,6 +4439,7 @@ function boot(){
   try{initPrint()}catch(e){console.error('print',e)}
   try{initSheets()}catch(e){console.error('sheets',e)}
   try{initShare();gcLoad()}catch(e){console.error('share',e)}
+  try{initSide()}catch(e){console.error('side',e)}
   window.addEventListener('hashchange',route);route();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
