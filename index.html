@@ -488,6 +488,8 @@ details.whatsnew>summary{cursor:pointer;font-weight:700;list-style:none}details.
 .shcard .acts a{flex:1;text-align:center;padding:8px 10px;border-radius:999px;text-decoration:none;font-weight:700;border:1px solid var(--line);color:var(--ink);white-space:nowrap}
 .shcard .acts a.pr{background:var(--ink);color:var(--card);border-color:var(--ink)}
 </style>
+<script>window.goatcounter={path:function(){return '/'+((location.hash||'').slice(1)||'home')}};try{if(location.hash==='#skip-me'){var on=localStorage.getItem('skipgc')==='t';localStorage.setItem('skipgc',on?'f':'t');window.__gcMsg=on?'הכניסות שלך ייספרו שוב':'✓ הכניסות שלך מהמכשיר הזה לא ייספרו';history.replaceState(null,'',location.pathname+'#home')}}catch(e){}</script>
+<script data-goatcounter="https://shaharamati.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head><body style="margin:0">
 
 <div class="app" lang="he" dir="rtl">
@@ -4385,10 +4387,9 @@ function initSheets(){const G=$('#sheetsGrid');if(!G)return;
 const GC_CODE='shaharamati';
 function gcSkip(){try{return localStorage.getItem('skipgc')==='t'}catch(e){return false}}
 function gcOk(){return GC_CODE&&!gcSkip()&&window.goatcounter&&typeof window.goatcounter.count==='function'}
-function gcPage(){if(gcOk())try{window.goatcounter.count({path:'/'+(location.hash.slice(1)||'home'),title:(document.querySelector('section.view:not([hidden]) h2')||{}).textContent||document.title})}catch(e){}}
+function gcPage(){if(gcOk())try{window.goatcounter.count({path:'/'+(location.hash.slice(1)||'home')})}catch(e){}}
 function gcEvent(name,title){if(gcOk())try{window.goatcounter.count({path:name,title:title||name,event:true})}catch(e){}}
-function gcLoad(){if(location.hash==='#toggle-goatcounter'){try{const on=gcSkip();localStorage.setItem('skipgc',on?'f':'t');setTimeout(()=>toast(on?'הכניסות שלך ייספרו שוב':'✓ הכניסות שלך מהמכשיר הזה לא ייספרו'),400)}catch(e){}history.replaceState(null,'',location.pathname+'#home')}
- if(!GC_CODE)return;window.goatcounter={no_onload:true};const sc=document.createElement('script');sc.async=true;sc.src='https://gc.zgo.at/count.js';sc.setAttribute('data-goatcounter','https://'+GC_CODE+'.goatcounter.com/count');sc.onload=()=>{gcPage();window.addEventListener('hashchange',()=>setTimeout(gcPage,50))};document.head.appendChild(sc)}
+function gcLoad(){if(window.__gcMsg)setTimeout(()=>toast(window.__gcMsg),500);let last=location.hash;window.addEventListener('hashchange',()=>{if(location.hash===last)return;last=location.hash;setTimeout(gcPage,60)})}
 function toast(t){let e=$('#gcToast');if(!e){e=document.createElement('div');e.id='gcToast';document.body.appendChild(e)}e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2200)}
 function initShare(){const b=$('#shareBtn');if(!b)return;b.addEventListener('click',async()=>{
   const url='https://luli334-lgtm.github.io/anatomy-atlas/'+location.hash;const page=location.hash.slice(1)||'home';
