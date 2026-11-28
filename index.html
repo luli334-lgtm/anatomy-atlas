@@ -356,8 +356,10 @@ i.na{color:#b04a00;font-style:normal;font-weight:600}.ctab td.cl{font-size:.88re
 .mainnav a,.mainnav button{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;text-decoration:none;color:var(--ink);font:inherit;font-weight:700;font-size:.95rem;border:1px solid transparent;background:none;cursor:pointer;white-space:nowrap}
 .mainnav a:hover,.mainnav button:hover{background:var(--soft)}
 .mainnav a.on{background:var(--ink);color:var(--card)}
-.mainnav .theme{margin-inline-start:auto;border-color:var(--line)}
-@media (max-width:560px){.mainnav{gap:2px;overflow:visible;flex-wrap:wrap}.mainnav a,.mainnav button{padding:7px 9px;font-size:.86rem;gap:4px}.mainnav .theme .tl{display:none}}
+.mainnav .theme{border-color:var(--line)}
+.mainnav .share{margin-inline-start:auto;border-color:var(--line)}
+#gcToast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:9px 16px;border-radius:999px;font-size:.9rem;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none}#gcToast.on{opacity:1}
+@media (max-width:560px){.mainnav{gap:2px;overflow:visible;flex-wrap:wrap}.mainnav a,.mainnav button{padding:7px 9px;font-size:.86rem;gap:4px}.mainnav .theme .tl,.mainnav .share .tl{display:none}}
 
 .crumb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.88rem;color:var(--muted);margin:0 0 10px}
 .crumb a{color:var(--muted)}.crumb .cu{width:10px;height:10px;border-radius:50%;display:inline-block}
@@ -3978,7 +3980,7 @@ const spKey=s=>s.q+'|'+s.a;
 const spChapter=s=>s.t.split('|')[0].split(':')[0];
 /* ---- header ---- */
 function v2Header(){const nav=document.createElement('nav');nav.className='mainnav';nav.setAttribute('aria-label','ניווט ראשי');
- nav.innerHTML=`<a href="#home" data-m="home">🏠 בית</a><a href="#topics" data-m="topics">📚 נושאים</a><a href="#exams" data-m="exams">📝 מבחנים</a><a href="#dict" data-m="dict">🔤 מילון</a><a href="#print" data-m="print">🖨️ הדפסה</a><button class="theme" id="themeBtn" type="button"></button>`;
+ nav.innerHTML=`<a href="#home" data-m="home">🏠 בית</a><a href="#topics" data-m="topics">📚 נושאים</a><a href="#exams" data-m="exams">📝 מבחנים</a><a href="#dict" data-m="dict">🔤 מילון</a><a href="#print" data-m="print">🖨️ הדפסה</a><button class="share" id="shareBtn" type="button" title="שיתוף האתר">🔗<span class="tl"> שיתוף</span></button><button class="theme" id="themeBtn" type="button"></button>`;
  $('#rail').after(nav);
  const T=['auto','light','dark'],L={auto:'🌗<span class="tl"> אוטומטי</span>',light:'☀️<span class="tl"> בהיר</span>',dark:'🌙<span class="tl"> כהה</span>'};let t=store.get('anat-theme','auto');
  const apply=()=>{if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);$('#themeBtn').innerHTML=L[t];$('#themeBtn').title='מצב תצוגה: '+$('#themeBtn').textContent.trim()};
@@ -4297,6 +4299,21 @@ const SHEETS=[
 ];
 function initSheets(){const G=$('#sheetsGrid');if(!G)return;
  G.innerHTML=SHEETS.map(x=>`<div class="shcard"><div class="th"><img loading="lazy" src="${SHEET_BASE}${x.f}-practice-thumb.jpg" alt="${x.t}"></div><div class="bd"><b>${x.t}</b><span class="hint">${x.d}</span><div class="tags">${x.ch.map(id=>{const c=CH.find(z=>z.id===id);return c?`<a class="pill" href="#${id}">${c.n}. ${c.t}</a>`:''}).join('')}</div><span class="hint">נוסף ב-${x.date} · דף תרגול: ${x.pages} ${x.pages>1?'עמודים':'עמוד'}${x.ap?` · דף תשובות: ${x.ap} עמודים`:''}</span><div class="acts"><a class="pr" href="${SHEET_BASE}${x.f}-practice.pdf" target="_blank" rel="noopener">✏️ דף תרגול</a><a href="${SHEET_BASE}${x.f}-answers.pdf" target="_blank" rel="noopener">✓ דף תשובות</a></div></div></div>`).join('');}
+/* ---- visitor stats (GoatCounter) + share (added 28.11) ---- */
+const GC_CODE='';
+function gcOk(){return GC_CODE&&window.goatcounter&&typeof window.goatcounter.count==='function'}
+function gcPage(){if(gcOk())try{window.goatcounter.count({path:'/'+(location.hash.slice(1)||'home'),title:(document.querySelector('section.view:not([hidden]) h2')||{}).textContent||document.title})}catch(e){}}
+function gcEvent(name,title){if(gcOk())try{window.goatcounter.count({path:name,title:title||name,event:true})}catch(e){}}
+function gcLoad(){if(!GC_CODE)return;window.goatcounter={no_onload:true};const sc=document.createElement('script');sc.async=true;sc.src='https://gc.zgo.at/count.js';sc.setAttribute('data-goatcounter','https://'+GC_CODE+'.goatcounter.com/count');sc.onload=()=>{gcPage();window.addEventListener('hashchange',()=>setTimeout(gcPage,50))};document.head.appendChild(sc)}
+function toast(t){let e=$('#gcToast');if(!e){e=document.createElement('div');e.id='gcToast';document.body.appendChild(e)}e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2200)}
+function initShare(){const b=$('#shareBtn');if(!b)return;b.addEventListener('click',async()=>{
+  const url='https://luli334-lgtm.github.io/anatomy-atlas/'+location.hash;const page=location.hash.slice(1)||'home';
+  const data={title:'אטלס מבוא לאנטומיה',text:'אתר לימוד למבוא לאנטומיה: סיכומים, תמונות מהמצגות, מבחנים ותרגול',url};
+  if(navigator.share){try{await navigator.share(data);gcEvent('share/'+page,'שיתוף: '+page)}catch(e){}}
+  else{try{await navigator.clipboard.writeText(url);toast('הקישור הועתק ✓');gcEvent('share-copy/'+page,'העתקת קישור: '+page)}catch(e){prompt('העתיקי את הקישור:',url)}}});
+ document.addEventListener('click',e=>{const a=e.target.closest('a[href*="/sheets/"]');if(a)gcEvent('sheet/'+a.getAttribute('href').split('/').pop(),'פתיחת דף תרגול')});
+ const pb=$('#prGoBtn');if(pb)pb.addEventListener('click',()=>gcEvent('print-booklet','יצירת חוברת להדפסה'));
+}
 /* ---------------- boot ---------------- */
 function boot(){
   buildRail();buildNP();refreshDone();
@@ -4305,6 +4322,7 @@ function boot(){
   try{initV2()}catch(e){console.error('v2',e)}
   try{initPrint()}catch(e){console.error('print',e)}
   try{initSheets()}catch(e){console.error('sheets',e)}
+  try{initShare();gcLoad()}catch(e){console.error('share',e)}
   window.addEventListener('hashchange',route);route();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
